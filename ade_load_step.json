@@ -1,0 +1,78 @@
+# The Docker task will be executed in the runtime AKS cluster and therefore it is important to understand that this might affect the overall AKS cluster performance.
+# If the docker step being executed will be needing a lot of processing, this might require AKS cluster size to be increased.
+#
+# Instructions:
+# 1. Set CLIENT_ID
+# 2. Set PBI_GROUP_ID, this is your Power BI group id
+# 3. Set PBI_DATASET_ID, this is your Power BI dataset
+#
+clustername=<SET THIS IN CONFIG_ENVIRONMENT_VARIABLES>; task={
+  "metadata": {
+    "name": "python-powerbi-anlasser"
+  },
+  "spec": {
+    "template": {
+      "spec": {
+        "containers": [
+          {
+            "name": "python-powerbi-anlasser",
+            "image": "<SET THIS IN CONFIG_ENVIRONMENT_VARIABLES PACKAGE>.azurecr.io/python-powerbi-anlasser",
+            "env": [
+              {
+                "name": "RUNTIME_ENV",
+                "value": "<SET THIS IN CONFIG_ENVIRONMENT_VARIABLES>"
+              },
+              {
+                "name": "CLIENT_ID",
+                "value": "Bayern Munchen"
+              },
+              {
+                "name": "DEV_PBI_GROUP_ID",
+                "value": "DEV_Robert"
+              },
+              {
+                "name": "DEV_PBI_DATASET_ID",
+                "value": "DEV_Lewandowski"
+              },
+              {
+                "name": "UAT_PBI_GROUP_ID",
+                "value": "UAT_Robert"
+              },
+              {
+                "name": "UAT_PBI_DATASET_ID",
+                "value": "UAT_Lewandowski"
+              },
+              {
+                "name": "PROD_PBI_GROUP_ID",
+                "value": "PROD_Robert"
+              },
+              {
+                "name": "PROD_PBI_DATASET_ID",
+                "value": "PROD_Lewandowski"
+              },
+              {
+                "name": "USERNAME",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "pbi-api-secrets",
+                    "key": "username"
+                  }
+                }
+              },
+              {
+                "name": "PASSWORD",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "pbi-api-secrets",
+                    "key": "password"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "restartPolicy": "Never"
+      }
+    }
+  }
+}; launchtype=AKS;
