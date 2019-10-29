@@ -1,10 +1,12 @@
 # Refresh given Power BI dataset using Docker and ADE
 
-This repository contains code to refresh given Power BI dataset using Docker container running inside Kubernetes and executed as ADE Load step on Azure
+This repository contains code to refresh given Power BI dataset using Docker as ADE Load step on Azure
 
 ## Getting Started
 
-Start by getting Azure AD account which can be used for automation and with having said that, this is not the most secure and the most beautiful code possible but it works. So if you're really keen on securing everything (this lacks MFA/Service Principal implementation) the solution might not be for you. Once you have account in hand and server/docker container used to do ADE updates, you are ok to start.
+Start by getting Azure AD account which can be used for automation and with having said that, this is not the most secure and the most beautiful code possible but it works. So if you're really keen on securing everything (this lacks MFA/Service Principal implementation) the solution might not be for you. Once you have that any server used for ADE updates, you are good to go.
+
+![Code](657.jpg)
 
 ### Prerequisites
 
@@ -26,15 +28,9 @@ root@0ba7075cb8a3:~/ade-installation-binaries/target/dev# sh setup-kubectl.sh
 root@0ba7075cb8a3:~/ade-installation-binaries/target/dev# kubectl create secret generic pbi-api-secrets --from-literal=username='*****' --from-literal=password='*****' --namespace=dagger
 ```
 2) Copy this repository
-3) Deploy python-powerbi-anlasser -image to desired to Kubernetes clusters
+3) Deploy this image to desired to Kubernetes clusters
 
-```
-root@0ba7075cb8a3:~/docker# az login
-root@0ba7075cb8a3:~/docker# az acr login --name clientclouddwdev
-root@0ba7075cb8a3:~/docker# docker build -t python-powerbi-anlasser .
-root@0ba7075cb8a3:~/docker# docker tag python-powerbi-anlasser:latest clientclouddevakscluster.azurecr.io/python-powerbi-anlasser:latest
-root@0ba7075cb8a3:~/docker# docker push clientclouddwdev.azurecr.io/python-powerbi-anlasser:latest
-```
+
 ## Local testing before Kubernetes deployment
 
 Docker container can be tested without Agile Data Engine by running the container directly without Kubernetes interaction.
@@ -42,12 +38,12 @@ Docker container can be tested without Agile Data Engine by running the containe
 1) Execute following command
 
 ```
-root@decd95622718:~/docker/python-powerbi-anlasser# docker run -e CLIENT_ID=your_id -e PBI_GROUP_ID=your_id  -e PBI_DATASET_ID=your_id -e USERNAME=your_username -e PASSWORD=your_password python-powerbi-anlasser
+docker run -e RUNTIME_ENV=env -e CLIENT_ID=client_id -e DEV_PBI_GROUP_ID=id1 -e DEV_PBI_DATASET_ID=id2 -e USERNAME='xxxx@xxx.com' -e PASSWORD='xxx' python-powerbi-anlasser4
 ```
 
 ## Deployment
 
-1) Copy the given example of ade_load_step.json content into Agile Data Engine Publish -layer package into Load Steps
+1) Copy the given example of ade_load_step.json content into Agile Data Engine Publish -layer package in to Load Steps
 2) Modify the contents of load steps to match your Power BI environment and dashboards
 3) Change the Load Step type to Docker
 4) Commit using normal ADE deployment model
@@ -102,7 +98,7 @@ print(r.content)
 
 ## Contributing
 
-Please contribute new versions this code repository
+Please contribute new versions into this code repository
 
 ## Versioning
 

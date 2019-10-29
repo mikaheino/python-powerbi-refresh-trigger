@@ -28,7 +28,7 @@ dev_group_id = os.environ['DEV_PBI_GROUP_ID']
 dev_dataset_id = os.environ['DEV_PBI_DATASET_ID']
 uat_group_id = os.environ['UAT_PBI_GROUP_ID']
 uat_dataset_id = os.environ['UAT_PBI_DATASET_ID']
-prod_dataset_id = os.environ['PROD_PBI_GROUP_ID']
+prod_group_id = os.environ['PROD_PBI_GROUP_ID']
 prod_dataset_id = os.environ['PROD_PBI_DATASET_ID']
 # These username and password variables are stored in Kubernetes secrets store in Dagger namespace
 # and they contain the password for user which has enough rights to make Power BI dataset refreshes

@@ -2,53 +2,61 @@
 # If the docker step being executed will be needing a lot of processing, this might require AKS cluster size to be increased.
 #
 # Instructions:
-# 1. Set CLIENT_ID
-# 2. Set PBI_GROUP_ID, this is your Power BI group id
-# 3. Set PBI_DATASET_ID, this is your Power BI dataset
+# 1. Set RUNTIME_ENV
+# 2. Set CLIENT_ID
+# 3. Set ENV_PBI_GROUP_ID, this is your Power BI group id
+# 4. Set ENV_PBI_DATASET_ID, this is your Power BI dataset
 #
-clustername=<SET THIS IN CONFIG_ENVIRONMENT_VARIABLES>; task={
+#
+# LOGS:
+# root@3efc908f31cc:~/ade-installation-binaries/target/dev# sh setup-kubectl.sh
+# root@3efc908f31cc:~/ade-installation-binaries/target/dev# kubectl get pods --namespace dagger
+# root@3efc908f31cc:~/ade-installation-binaries/target/dev# kubectl logs pod --namespace dagger
+#
+#
+clustername=<aks>; task={
   "metadata": {
-    "name": "python-powerbi-anlasser"
+    "name": "python-powerbi-anlasser4"
   },
   "spec": {
     "template": {
       "spec": {
         "containers": [
           {
-            "name": "python-powerbi-anlasser",
-            "image": "<SET THIS IN CONFIG_ENVIRONMENT_VARIABLES PACKAGE>.azurecr.io/python-powerbi-anlasser",
+            "name": "python-powerbi-anlasser4",
+            "image": "<ade_environment>.azurecr.io/python-powerbi-anlasser4",
             "env": [
               {
                 "name": "RUNTIME_ENV",
-                "value": "<SET THIS IN CONFIG_ENVIRONMENT_VARIABLES>"
+                "value": "<environment>"
               },
               {
                 "name": "CLIENT_ID",
-                "value": "Bayern Munchen"
+                "value": ""
               },
               {
                 "name": "DEV_PBI_GROUP_ID",
-                "value": "DEV_Robert"
+                "value": ""
               },
               {
                 "name": "DEV_PBI_DATASET_ID",
-                "value": "DEV_Lewandowski"
+                "value": ""
               },
               {
-                "name": "UAT_PBI_GROUP_ID",
-                "value": "UAT_Robert"
+                "name": "DEV_PBI_GROUP_ID",
+                "value": " "
               },
               {
                 "name": "UAT_PBI_DATASET_ID",
-                "value": "UAT_Lewandowski"
+                "value": " "
               },
               {
-                "name": "PROD_PBI_GROUP_ID",
-                "value": "PROD_Robert"
+                "name": "DEV_PBI_GROUP_ID",
+                "value": " "
               },
               {
                 "name": "PROD_PBI_DATASET_ID",
-                "value": "PROD_Lewandowski"
+                "value": " "
               },
               {
                 "name": "USERNAME",
